@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎨 geni2012_ · Galería de Dibujos</title>
+<meta name="description" content="Galería oficial de dibujos de geni2012_ — arte hecho con fuego y pasión.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire: #ff4d00;
+    --ember: #ff8c00;
+    --gold: #ffd700;
+    --dark: #050305;
+    --deep: #0d0509;
+    --blood: #8b0000;
+    --corrupt: #4a0080;
+    --pure: #003580;
+    --teal: #00c8a0;
+    --smoke: rgba(255,255,255,0.04);
+    --card-bg: rgba(20, 5, 10, 0.85);
+    --sold-color: #8b0000;
+    --avail-color: #00c8a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: #e8d5b0;
+    font-family: 'Cinzel', serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ─── PARTICLES ─── */
+  #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+    padding: 2rem;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(180,40,0,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(80,0,120,0.3) 0%, transparent 60%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='none'/%3E%3Cpath d='M0 0 L60 60 M60 0 L0 60' stroke='rgba(255,120,0,0.03)' stroke-width='0.5'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 1s ease both;
+  }
+
+  .logo-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    animation: blazeIn 1.2s cubic-bezier(.2,.8,.3,1) both;
+  }
+
+  .logo-wrap::after {
+    content: '🎨 geni2012_ 🎨';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    background: linear-gradient(180deg, #fff5c0, #ff6a00 40%, #8b0000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: blur(18px);
+    opacity: 0.5;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    pointer-events: none;
+  }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.2rem, 8vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+    background: linear-gradient(160deg, #ffe680 0%, #ff8c00 35%, #ff2200 65%, #9b00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(255,100,0,0.6));
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tagline {
+    margin-top: 1.2rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: #d4b88a;
+    max-width: 640px;
+    line-height: 1.7;
+    animation: fadeUp 1.4s ease both 0.3s;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1.4s ease both 0.5s;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .stat-number {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(255,140,0,0.5));
+  }
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0.5;
+    animation: float 2s ease-in-out infinite;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+  }
+  .scroll-hint::after { content: '▼'; font-size: 0.8rem; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--fire), var(--gold), var(--fire), transparent);
+    position: relative;
+    z-index: 1;
+  }
+  .divider::before {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--dark);
+    padding: 0 1rem;
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  /* ─── FILTROS ─── */
+  .filter-bar {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    z-index: 1;
+    position: relative;
+  }
+  .filter-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    border: 1px solid rgba(255,140,0,0.3);
+    background: transparent;
+    color: var(--ember);
+    cursor: pointer;
+    transition: all 0.25s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: rgba(255,100,0,0.15);
+    border-color: var(--ember);
+    color: var(--gold);
+    box-shadow: 0 0 20px rgba(255,100,0,0.2);
+  }
+
+  /* ─── SECTION ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.7rem;
+    background: linear-gradient(135deg, var(--gold), var(--ember));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(255,140,0,0.4));
+  }
+  .section-sub {
+    text-align: center;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: #a08060;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  /* ─── GALLERY GRID ─── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  /* ─── DRAWING CARD ─── */
+  .draw-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    --mx: 50%; --my: 50%;
+  }
+  .draw-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle 200px at var(--mx) var(--my), rgba(255,120,0,0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  .draw-card:hover::before { opacity: 1; }
+  .draw-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 140, 0, 0.45);
+    box-shadow: 0 10px 40px rgba(180, 60, 0, 0.25), 0 0 0 1px rgba(255, 200, 0, 0.08);
+  }
+
+  /* ─── IMAGE WRAPPER ─── */
+  .draw-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #0a0308;
+  }
+  .draw-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .draw-card:hover .draw-img-wrap img { transform: scale(1.04); }
+
+  /* overlay número */
+  .draw-num {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.7rem;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.65rem;
+    color: var(--gold);
+    background: rgba(5,3,5,0.75);
+    padding: 0.25rem 0.6rem;
+    letter-spacing: 0.15em;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    backdrop-filter: blur(4px);
+  }
+
+  /* status badge */
+  .status-badge {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    backdrop-filter: blur(6px);
+    font-weight: 700;
+  }
+  .status-badge.vendido {
+    background: rgba(139, 0, 0, 0.7);
+    color: #ff9999;
+    border: 1px solid rgba(200, 0, 0, 0.4);
+  }
+  .status-badge.disponible {
+    background: rgba(0, 80, 60, 0.7);
+    color: #80ffdf;
+    border: 1px solid rgba(0, 200, 160, 0.4);
+  }
+
+  /* ─── CARD INFO ─── */
+  .draw-info {
+    padding: 1.2rem 1.3rem 1.4rem;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,140,0,0.1);
+  }
+
+  .draw-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+    filter: drop-shadow(0 0 8px rgba(255,200,0,0.3));
+  }
+
+  .draw-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: #a08060;
+    letter-spacing: 0.05em;
+  }
+  .meta-row .meta-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .meta-row .meta-label {
+    color: rgba(255,140,0,0.5);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-right: 0.2rem;
+    flex-shrink: 0;
+  }
+  .meta-row .meta-val {
+    color: #d4b88a;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+  }
+  .meta-row a.meta-val {
+    color: var(--teal);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .meta-row a.meta-val:hover { color: var(--gold); }
+
+  .draw-price {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(255,140,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .price-amount {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--gold), var(--ember));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(255,180,0,0.4));
+  }
+  .price-free {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    text-transform: uppercase;
+  }
+
+  /* ─── LORE STRIP ─── */
+  .lore-strip {
+    border: 1px solid rgba(255,140,0,0.15);
+    border-left: 3px solid var(--fire);
+    background: linear-gradient(135deg, rgba(30,8,5,0.8), rgba(15,5,20,0.8));
+    padding: 2rem 2.5rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #c8aa80;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(4px);
+  }
+  .highlight {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ─── WARNING ─── */
+  .warning-banner {
+    background: linear-gradient(135deg, rgba(139,0,0,0.3), rgba(74,0,128,0.3));
+    border: 1px solid rgba(200,0,0,0.25);
+    border-top: 2px solid var(--blood);
+    padding: 1.2rem 2rem;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ff9999;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: #5a4030;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    border-top: 1px solid rgba(255,140,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  footer a { color: var(--ember); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  /* ─── PLACEHOLDER IMAGE ─── */
+  .placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a0510, #0d0318);
+    color: rgba(255,140,0,0.2);
+    font-size: 3rem;
+    gap: 0.5rem;
+  }
+  .placeholder-img span {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    color: rgba(255,140,0,0.15);
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,3,5,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+  }
+  .lightbox-inner img {
+    width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    display: block;
+    border: 1px solid rgba(255,140,0,0.2);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--ember);
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 0.5rem;
+  }
+  .lightbox-close:hover { color: var(--gold); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(20px);  } to { opacity: 1; transform: none; } }
+  @keyframes blazeIn  { from { opacity: 0; transform: scale(0.85); filter: blur(10px); } to { opacity: 1; transform: scale(1); filter: none; } }
+  @keyframes float    { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--blood); border-radius: 3px; }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-msg {
+    text-align: center;
+    color: rgba(255,140,0,0.3);
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    padding: 3rem;
+    display: none;
+  }
+  .empty-msg.show { display: block; }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose">✕ Cerrar</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">TikTok · Arte Hecho a Mano · Comisiones</p>
+  <div class="logo-wrap">
+    <h1>🎨 geni2012_</h1>
+  </div>
+  <p class="hero-tagline">
+    Cada dibujo lleva un pedacito del alma.<br>
+    Aquí viven todas las obras, sus dueños y sus historias.
+  </p>
+
+  <!-- Estadísticas automáticas -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-number" id="totalCount">0</span>
+      <span class="stat-label">Dibujos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" id="soldCount">0</span>
+      <span class="stat-label">Vendidos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" id="availCount">0</span>
+      <span class="stat-label">Disponibles</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">VER GALERÍA</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <h2 class="section-title reveal">🖌️ Galería de Dibujos</h2>
+  <p class="section-sub reveal">Todas las obras de geni2012_ en un solo lugar</p>
+
+  <!-- FILTROS -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="todos">✦ Todos</button>
+    <button class="filter-btn" data-filter="disponible">🟢 Disponibles</button>
+    <button class="filter-btn" data-filter="vendido">🔴 Vendidos</button>
+  </div>
+
+  <div class="gallery-grid reveal" id="galleryGrid">
+    <!-- Las cards se generan desde el array de abajo (JavaScript) -->
+  </div>
+
+  <p class="empty-msg" id="emptyMsg">No hay dibujos en esta categoría aún...</p>
+</section>
+
+<div class="warning-banner reveal">
+  ✏️ &nbsp;¿Quieres tu propio dibujo? · Busca a <a href="https://www.tiktok.com/@geni2012_" target="_blank" style="color:var(--gold);">@geni2012_ en TikTok</a> · ¡Las comisiones están abiertas!
+</div>
+
+<div class="lore-strip reveal" style="margin-top:4rem; margin-bottom:4rem;">
+  <p>
+    🎨 <span class="highlight">Cada trazo tiene un nombre, cada dibujo tiene una historia.</span><br><br>
+    Aquí encontrarás todas las obras que han pasado por las manos de geni2012_ —
+    desde bocetos rápidos hasta piezas completas hechas con amor y dedicación.
+    Si tu encargo está aquí, <span class="highlight">¡ya eres parte de la galería!</span>
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>🎨 geni2012_</span> · Arte hecho a mano · TikTok<br><br>
+  Sígueme en <a href="https://www.tiktok.com/@geni2012_" target="_blank">@geni2012_ en TikTok</a> 🖌️<br><br>
+  <span style="font-size:0.75rem; opacity:0.5;">Hecho con fuego y lápiz 🔥✏️</span>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+//   ✏️ AQUÍ AGREGAS TUS DIBUJOS
+//   Para agregar uno nuevo, copia un bloque { }
+//   y cambia los datos. ¡Así de fácil!
+// ══════════════════════════════════════════════
+const dibujos = [
+
+  {
+    titulo: "Dragón de las Llamas",          // Nombre del dibujo
+    imagen: "",                               // Pega el link de la imagen aquí (o déjalo vacío)
+    pedidoPor: "darkfire_roblox",            // Nombre de quien lo pidió
+    redSocial: "https://www.tiktok.com/@darkfire_roblox", // Link de TikTok/IG de quien pidió
+    precio: "$5 USD",                        // Precio cobrado (pon "Gratis" si fue sin costo)
+    estado: "vendido",                       // "vendido" o "disponible"
+    numero: "#001"
+  },
+
+  {
+    titulo: "Gatita Kawaii",
+    imagen: "",
+    pedidoPor: "luna_pastelxo",
+    redSocial: "https://www.tiktok.com/@luna_pastelxo",
+    precio: "$3 USD",
+    estado: "vendido",
+    numero: "#002"
+  },
+
+  {
+    titulo: "Lobo de la Luna",
+    imagen: "",
+    pedidoPor: "wolfboy_noctis",
+    redSocial: "https://www.tiktok.com/@wolfboy_noctis",
+    precio: "$6 USD",
+    estado: "vendido",
+    numero: "#003"
+  },
+
+  {
+    titulo: "Princesa de Cristal",
+    imagen: "",
+    pedidoPor: "crystalrose_art",
+    redSocial: "https://www.tiktok.com/@crystalrose_art",
+    precio: "Gratis",
+    estado: "disponible",
+    numero: "#004"
+  },
+
+  {
+    titulo: "El Caballero Oscuro",
+    imagen: "",
+    pedidoPor: "shadowknight99",
+    redSocial: "https://www.tiktok.com/@shadowknight99",
+    precio: "$8 USD",
+    estado: "disponible",
+    numero: "#005"
+  },
+
+  {
+    titulo: "Conejita Estelar",
+    imagen: "",
+    pedidoPor: "starbunny_ok",
+    redSocial: "",                            // Si no tiene red social, déjalo vacío ""
+    precio: "$4 USD",
+    estado: "vendido",
+    numero: "#006"
+  },
+
+];
+// ══════════════════════════════════════════════
+//   FIN DE LA LISTA — no toques lo de abajo
+// ══════════════════════════════════════════════
+
+
+// ─── BUILD CARDS ───
+function buildCard(d, idx) {
+  const hasImg  = d.imagen && d.imagen.trim() !== '';
+  const imgHTML = hasImg
+    ? `<img src="${d.imagen}" alt="${d.titulo}" loading="lazy">`
+    : `<div class="placeholder-img">🖼️<span>Imagen próximamente</span></div>`;
+
+  const social = d.redSocial && d.redSocial.trim() !== ''
+    ? `<a class="meta-val" href="${d.redSocial}" target="_blank">@${d.pedidoPor}</a>`
+    : `<span class="meta-val">@${d.pedidoPor}</span>`;
+
+  const isGratis = d.precio.toLowerCase() === 'gratis' || d.precio === '$0' || d.precio === '0';
+  const priceHTML = isGratis
+    ? `<span class="price-free">✦ GRATIS</span>`
+    : `<span class="price-amount">${d.precio}</span>`;
+
+  return `
+    <div class="draw-card" data-estado="${d.estado}" data-img="${d.imagen || ''}">
+      <div class="draw-img-wrap">
+        ${imgHTML}
+        <div class="draw-num">${d.numero || '#' + String(idx+1).padStart(3,'0')}</div>
+        <div class="status-badge ${d.estado}">${d.estado === 'vendido' ? '🔴 Vendido' : '🟢 Disponible'}</div>
+      </div>
+      <div class="draw-info">
+        <div class="draw-title">${d.titulo}</div>
+        <div class="draw-meta">
+          <div class="meta-row">
+            <span class="meta-icon">🎨</span>
+            <span class="meta-label">Pedido por</span>
+            ${social}
+          </div>
+        </div>
+        <div class="draw-price">
+          ${priceHTML}
+          <span style="font-size:0.6rem; letter-spacing:0.15em; color:rgba(255,140,0,0.35); text-transform:uppercase;">Comisión</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderGallery(filter = 'todos') {
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('emptyMsg');
+  const filtered = filter === 'todos' ? dibujos : dibujos.filter(d => d.estado === filter);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.classList.add('show');
+  } else {
+    empty.classList.remove('show');
+    grid.innerHTML = filtered.map((d, i) => buildCard(d, i)).join('');
+    attachCardEvents();
+  }
+}
+
+function attachCardEvents() {
+  document.querySelectorAll('.draw-card').forEach(card => {
+    // hover glow
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+    // lightbox
+    card.addEventListener('click', () => {
+      const src = card.dataset.img;
+      if (!src) return;
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    });
+  });
+}
+
+// ─── STATS ───
+function updateStats() {
+  const total = dibujos.length;
+  const sold  = dibujos.filter(d => d.estado === 'vendido').length;
+  const avail = dibujos.filter(d => d.estado === 'disponible').length;
+  animCount('totalCount', total);
+  animCount('soldCount', sold);
+  animCount('availCount', avail);
+}
+function animCount(id, target) {
+  const el = document.getElementById(id);
+  let n = 0;
+  const step = () => {
+    n = Math.min(n + 1, target);
+    el.textContent = n;
+    if (n < target) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// ─── FILTERS ───
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery(btn.dataset.filter);
+  });
+});
+
+// ─── LIGHTBOX ───
+document.getElementById('lightboxClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+
+// ─── PARTICLES ───
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+
+const embers = Array.from({length: 80}, () => ({
+  x: Math.random() * W, y: H + Math.random() * 100,
+  size: Math.random() * 2.5 + 0.5,
+  speed: Math.random() * 0.8 + 0.2,
+  drift: (Math.random() - 0.5) * 0.4,
+  alpha: Math.random() * 0.6 + 0.1,
+  hue: Math.random() * 40 + 10
+}));
+function drawEmbers() {
+  ctx.clearRect(0, 0, W, H);
+  embers.forEach(e => {
+    e.y -= e.speed; e.x += e.drift;
+    e.alpha += (Math.random() - 0.5) * 0.02;
+    e.alpha = Math.max(0.05, Math.min(0.7, e.alpha));
+    if (e.y < -10) { e.y = H + 10; e.x = Math.random() * W; }
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${e.hue}, 100%, 60%, ${e.alpha})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(drawEmbers);
+}
+drawEmbers();
+
+// ─── SCROLL REVEAL ───
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+// ─── INIT ───
+renderGallery();
+updateStats();
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
